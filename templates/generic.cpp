@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 // generic programming (macros)
 // marcos are not good
@@ -17,8 +18,13 @@ void func(T1 a, T2 b) {
 	std::cout << a << " : " << b << std::endl;
 }
 
-template <typename T>
-void func2(T a, T b);
+struct Person {
+	std::string name;
+	int age;
+	bool operator>(const Person &rhs) const {
+		return this->age < rhs.age;
+	}
+};
 
 int main() {
 	int a = 1;
@@ -31,15 +37,9 @@ int main() {
 
 	func<int, double>(1, 1.0);
 
-	func2<int>(1, 1);
-	func2<char>('a', 'b');
-}
+	Person p1 {"Curly", 50};
+	Person p2 {"Moe", 55};
 
-template <typename T>
-void func2(T a, T b) {
-	if (a == b) {
-		std::cout << "They are the same" << std::endl;
-	} else {
-		std::cout << "They are not the same" << std::endl;
-	}
+	Person p3 = max(p1, p2);
+	std::cout << p3.name << " is younger" << std::endl;
 }
